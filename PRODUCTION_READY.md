@@ -1,39 +1,32 @@
-# 🚀 NeuroLearn AI Production Guide (Railway + Vercel)
+# 🚀 NeuroLearn AI Production Guide (Render + Vercel — Free Stack)
 
-Your platform is ready for the ultimate 1-2 punch: **Railway** for the Backend and **Vercel** for the Frontend.
+This is the best way to host your platform for **$0/month**.
 
 ---
 
-## 🚂 1. Backend Deployment (Railway.app)
-1. **New Project**: Select "Deploy from GitHub repo" and choose `NeuroLearn-AI`.
-2. **Root Directory**: Select `server`.
-3. **Environment Variables**: Add these in the "Variables" tab:
-   - `PORT`: `5000` (Railway usually provides this, but good to set).
-   - `MONGO_URI`: (Your MongoDB Atlas connection string).
-   - `JWT_SECRET`: (A strong random secret).
-   - `GROQ_API_KEY`: (Your API key).
-   - `VITE_CLIENT_URL`: (Set this AFTER you get your Vercel URL).
+## ☁️ 1. Backend Deployment (Render.com)
+1. **New Web Service**: Click "New +" -> "Web Service".
+2. **Connect GitHub**: Link your `NeuroLearn-AI` repository.
+3. **Root Directory**: Set this to `server`.
+4. **Environment**: `Node`.
+5. **Build Command**: `npm install`
+6. **Start Command**: `npm start`
+7. **Environment Variables**: Click "Advanced" and add:
+   - `MONGO_URI`: (Your MongoDB Atlas Link)
+   - `JWT_SECRET`: (Your secret key)
+   - `GROQ_API_KEY`: (Your API key)
+   - `VITE_CLIENT_URL`: (Set this AFTER you get your Vercel URL)
 
 ## 🎨 2. Frontend Deployment (Vercel)
 1. **Import Repo**: Import `NeuroLearn-AI`.
-2. **Root Directory**: Set to `client`.
+2. **Root Directory**: `client`.
 3. **Framework**: Vite.
 4. **Environment Variables**:
-   - `VITE_API_URL`: (The URL from your Railway backend, e.g., `https://xxx.up.railway.app`).
+   - `VITE_API_URL`: (The URL Render gives you, e.g., `https://neurolearn.onrender.com`).
 
 ---
 
-## 🔄 3. Linking the two
-Once both are deployed:
-1. Copy your **Vercel URL** (e.g., `https://neurolearn.vercel.app`).
-2. Go to **Railway Settings** -> Variables.
-3. Update `VITE_CLIENT_URL` to your Vercel link. This secures your API so ONLY your site can talk to it.
+## 🛡️ Important Note for Free Tier
+On Render's free tier, the backend "sleeps" if it's not used. The first time you open the site after a while, it might take **30-60 seconds** to wake up. This is normal for free hosting!
 
----
-
-## 🛡️ Final Checks
-- [x] Backend is using the `npm start` script.
-- [x] CORS is configured for your Vercel domain.
-- [x] Database is reachable from external IPs (Check MongoDB Atlas Whitelist).
-
-**Your platform is now ready for world-class hosting!** 🎓✨
+**Go to [Render.com](https://render.com) and click "New Web Service" to start!** 🎓✨
