@@ -1,0 +1,19 @@
+# Node dependencies
+node_modules/
+dist/
+.env
+
+# Python dependencies
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db

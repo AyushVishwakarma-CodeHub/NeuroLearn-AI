@@ -1,0 +1,365 @@
+.planner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.planner-top {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .planner-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Calendar Card ── */
+.planner-calendar-card {
+  padding: 1.75rem;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.cal-month-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.cal-nav-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.cal-nav-btn:hover {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.4);
+  color: #a5b4fc;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.weekday-label {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  padding: 0.4rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+  padding: 4px 2px;
+  border: 1px solid transparent;
+  gap: 3px;
+}
+
+.cal-cell.empty {
+  cursor: default;
+  pointer-events: none;
+}
+
+.cal-cell:not(.empty):hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.cal-cell.is-today {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.5) !important;
+}
+
+.cal-cell.is-selected {
+  background: rgba(99,102,241,0.2);
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+}
+
+.cal-cell.has-events {
+  border-color: rgba(255,255,255,0.06);
+}
+
+.day-number {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.is-today .day-number {
+  color: #a5b4fc;
+  font-weight: 800;
+}
+
+.event-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.event-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-overdue  { background: #f87171; box-shadow: 0 0 4px rgba(248,113,113,0.6); }
+.dot-today    { background: #fbbf24; box-shadow: 0 0 4px rgba(251,191,36,0.6); }
+.dot-upcoming { background: #4ade80; box-shadow: 0 0 4px rgba(74,222,128,0.6); }
+
+.dot-more {
+  font-size: 0.6rem;
+  color: var(--text-tertiary);
+  font-weight: 700;
+}
+
+/* Legend */
+.cal-legend {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.cal-legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ── Side Panel ── */
+.planner-side-panel {
+  padding: 1.5rem;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 0.75rem;
+}
+
+.side-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  padding: 2rem 1rem;
+}
+
+.side-topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.side-topic-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.side-topic-item:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.side-topic-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.side-topic-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.side-topic-info strong {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.side-topic-info p {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  margin: 0.15rem 0 0;
+}
+
+/* ── Today's Tasks ── */
+.todays-tasks {
+  padding: 1.75rem;
+}
+
+.todays-tasks h3 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.task-badge {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.tasks-empty {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  padding: 1rem 0;
+}
+
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.task-card {
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: transform 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+}
+
+.task-overdue {
+  background: rgba(239,68,68,0.07);
+  border-color: rgba(239,68,68,0.25);
+}
+
+.task-due {
+  background: rgba(251,191,36,0.07);
+  border-color: rgba(251,191,36,0.25);
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.task-status-icon {
+  font-size: 1rem;
+}
+
+.task-header strong {
+  font-size: 0.92rem;
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.task-retention {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.ret-low {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+}
+
+.ret-mid {
+  background: rgba(251,191,36,0.15);
+  color: #fbbf24;
+}
+
+.task-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.task-date-label {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
