@@ -1,43 +1,39 @@
-# 🚀 NeuroLearn AI Production Guide
+# 🚀 NeuroLearn AI Production Guide (Railway + Vercel)
 
-Congratulations! Your platform is hardened and ready for the real world. Follow these steps to go live.
+Your platform is ready for the ultimate 1-2 punch: **Railway** for the Backend and **Vercel** for the Frontend.
 
 ---
 
-## 1. 🌍 Backend Deployment (Render.com)
-1. **Connect GitHub**: Create a new "Web Service" on Render and link your `NeuroLearn-AI` repository.
-2. **Root Directory**: Set this to `server`.
-3. **Build Command**: `npm install`
-4. **Start Command**: `npm start`
-5. **Environment Variables**: Add these in the Render dashboard:
-   - `MONGO_URI`: (Your MongoDB Atlas Link)
-   - `JWT_SECRET`: (A long random string)
-   - `GROQ_API_KEY`: (Your AI key)
+## 🚂 1. Backend Deployment (Railway.app)
+1. **New Project**: Select "Deploy from GitHub repo" and choose `NeuroLearn-AI`.
+2. **Root Directory**: Select `server`.
+3. **Environment Variables**: Add these in the "Variables" tab:
+   - `PORT`: `5000` (Railway usually provides this, but good to set).
+   - `MONGO_URI`: (Your MongoDB Atlas connection string).
+   - `JWT_SECRET`: (A strong random secret).
+   - `GROQ_API_KEY`: (Your API key).
+   - `VITE_CLIENT_URL`: (Set this AFTER you get your Vercel URL).
 
 ## 🎨 2. Frontend Deployment (Vercel)
-1. **Import Repo**: Import the repository into Vercel.
-2. **Framework Preset**: Vite.
-3. **Root Directory**: `client`.
+1. **Import Repo**: Import `NeuroLearn-AI`.
+2. **Root Directory**: Set to `client`.
+3. **Framework**: Vite.
 4. **Environment Variables**:
-   - `VITE_API_URL`: (The URL Render gives you for your backend)
-
-## 🧠 3. ML Service (Optional)
-If you want the AI Smart Planner:
-1. Deploy the `ml-service` as a "Python Web Service" on Render.
-2. Set the `ML_SERVICE_URL` in your Backend environment variables.
+   - `VITE_API_URL`: (The URL from your Railway backend, e.g., `https://xxx.up.railway.app`).
 
 ---
 
-## 🛡️ Final Production Checklist
-- [x] **Auth Hardening**: JWT tokens are active and secure.
-- [x] **Admin Portal**: Restricted to `admin` role only.
-- [x] **Frontend Optimized**: Production build verified.
-- [x] **Error Handling**: Standardized across all AI endpoints.
-- [x] **Role Protection**: Admin routes are gated at the middleware level.
+## 🔄 3. Linking the two
+Once both are deployed:
+1. Copy your **Vercel URL** (e.g., `https://neurolearn.vercel.app`).
+2. Go to **Railway Settings** -> Variables.
+3. Update `VITE_CLIENT_URL` to your Vercel link. This secures your API so ONLY your site can talk to it.
 
 ---
 
-### **Need a Live Domain?**
-You can now point a custom domain (e.g., `neurolearn.ai`) to your Vercel deployment and you are officially open for business!
+## 🛡️ Final Checks
+- [x] Backend is using the `npm start` script.
+- [x] CORS is configured for your Vercel domain.
+- [x] Database is reachable from external IPs (Check MongoDB Atlas Whitelist).
 
-**Good luck with your launch!** 🎓✨
+**Your platform is now ready for world-class hosting!** 🎓✨
