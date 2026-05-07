@@ -89,4 +89,39 @@ router.post('/from-image', protect, upload.single('image'), async (req, res) => 
   }
 });
 
+// 3. AI Coach Chat
+router.post('/chat', protect, async (req, res) => {
+  try {
+    const { message, context } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    const completion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content: `You are the NeuroLearn AI Coach. You are supportive, encouraging, and highly intelligent. 
+          Your goal is to help students succeed. 
+          Current User Context: ${context || 'General student session.'}
+          Keep responses concise (max 3-4 sentences unless explaining a concept) and always encourage the user.`
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ],
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.7,
+      max_tokens: 500
+    });
+
+    res.json({ reply: completion.choices[0].message.content });
+  } catch (err) {
+    console.error('Chat Error:', err);
+    res.status(500).json({ error: 'AI Coach is busy right now. Try again shortly!' });
+  }
+});
+
 module.exports = router;

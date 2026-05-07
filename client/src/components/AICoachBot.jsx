@@ -4,12 +4,19 @@ import API_BASE from '../config';
 
 const AICoachBot = ({ user, topics }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: `Hi ${user?.username}! I'm your NeuroLearn AI Coach. Need help with your ${topics.length} topics today?` }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Set initial message only once when topics are ready
+  useEffect(() => {
+    if (messages.length === 0 && user) {
+      setMessages([
+        { role: 'assistant', content: `Hi ${user.username}! I'm your NeuroLearn AI Coach. I see you're working on ${topics.length} topics. Ready to boost that retention? 🚀` }
+      ]);
+    }
+  }, [user, topics, messages.length]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
