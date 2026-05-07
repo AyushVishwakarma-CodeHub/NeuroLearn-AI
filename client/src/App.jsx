@@ -149,8 +149,8 @@ function App() {
                 </div>
               </div>
 
-              {/* BOTTOM ROW: 4-BOX OVERVIEW */}
-              <div className="glass-card full-width-card stats-overview">
+              {/* BOTTOM ROW: SIDE-BY-SIDE OVERVIEW & ALERTS */}
+              <div className="glass-card stats-overview">
                 <div className="card-header">
                   <h3>📊 Study Overview</h3>
                 </div>
@@ -174,8 +174,7 @@ function App() {
                 </div>
               </div>
 
-              {/* REVISION ALERTS */}
-              <div className="glass-card full-width-card">
+              <div className="glass-card revision-alerts-card">
                 <div className="card-header">
                   <h3>🔔 Revision Alerts</h3>
                 </div>
@@ -189,11 +188,10 @@ function App() {
                           <th>Topic</th>
                           <th>Last Reviewed</th>
                           <th>Retention</th>
-                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {topics.filter(t => t.retentionScore < 60).map((topic) => (
+                        {topics.filter(t => t.retentionScore < 60).slice(0, 5).map((topic) => (
                           <tr key={topic._id}>
                             <td><strong>{topic.title}</strong></td>
                             <td>{topic.lastReviewed ? new Date(topic.lastReviewed).toLocaleDateString() : 'Not Yet'}</td>
@@ -204,9 +202,6 @@ function App() {
                                 </div>
                                 <span className="retention-val">{topic.retentionScore}%</span>
                               </div>
-                            </td>
-                            <td>
-                              <button className="btn-action-small" onClick={() => { setRevisionPickerTopic(topic.title); }}>🔄 Revise</button>
                             </td>
                           </tr>
                         ))}
