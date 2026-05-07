@@ -188,6 +188,7 @@ function App() {
                           <th>Topic</th>
                           <th>Last Reviewed</th>
                           <th>Retention</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -202,6 +203,9 @@ function App() {
                                 </div>
                                 <span className="retention-val">{topic.retentionScore}%</span>
                               </div>
+                            </td>
+                            <td>
+                              <button className="btn-action-small" onClick={() => { setRevisionPickerTopic(topic.title); }}>🔄 Revise</button>
                             </td>
                           </tr>
                         ))}
