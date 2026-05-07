@@ -195,6 +195,32 @@
 }
 
 /* Compact Table for Alerts */
+.alerts-container-fixed {
+  max-height: 230px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom Premium Scrollbar */
+.alerts-container-fixed::-webkit-scrollbar {
+  width: 5px;
+}
+
+.alerts-container-fixed::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.alerts-container-fixed::-webkit-scrollbar-thumb {
+  background: rgba(129, 140, 248, 0.3);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.alerts-container-fixed::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
 .topics-table-compact {
   width: 100%;
   border-collapse: collapse;

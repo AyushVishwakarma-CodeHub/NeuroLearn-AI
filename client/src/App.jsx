@@ -201,7 +201,7 @@ function App() {
                             </tr>
                           </thead>
                           <tbody>
-                            {topics.filter(t => t.retentionScore < 60).slice(0, 4).map((topic) => (
+                            {topics.filter(t => t.retentionScore < 60).map((topic) => (
                               <tr key={topic._id}>
                                 <td>{topic.title}</td>
                                 <td>
