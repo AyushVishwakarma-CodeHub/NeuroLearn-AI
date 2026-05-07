@@ -139,20 +139,96 @@
 .insight-item .icon { font-size: 1.2rem; flex-shrink: 0; }
 .insight-item p { font-size: 0.9rem; color: var(--text-primary); margin: 0; font-weight: 500; }
 
-/* Stats Overview Grid */
-.stats-overview {
-  grid-column: span 2;
+.dashboard-layout-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
-.revision-alerts-card {
-  grid-column: span 1;
+.ai-coach-card.full-width {
+  width: 100%;
 }
 
-.stats-grid {
+.dashboard-grid-main {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Stats 2x2 Grid inside a card */
+.stats-grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.stat-box-small {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 1.25rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.stat-box-small:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+}
+
+.stat-box-small .val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: block;
+}
+
+.stat-box-small .lab {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+/* Compact Table for Alerts */
+.topics-table-compact {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.topics-table-compact th {
+  text-align: left;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  padding: 0.5rem;
+}
+
+.topics-table-compact td {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge-retention {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.btn-mini {
+  background: var(--accent-primary);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
 }
 
 .stat-box {
