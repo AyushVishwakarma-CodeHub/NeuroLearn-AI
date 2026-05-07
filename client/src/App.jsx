@@ -97,121 +97,124 @@ function App() {
         const lowestTopic = sortedTopics.length > 0 ? sortedTopics[0] : null;
 
         return (
-          <section className="dashboard-grid">
-            <div className="glass-card ai-coach-card animate-fade-up">
-              <div className="ai-coach-glow"></div>
-              <div className="ai-coach-icon">🤖</div>
-              <div className="ai-coach-content">
-                <h3>NeuroLearn AI Coach</h3>
-                <p className="coach-tip">"{coachTip}"</p>
-              </div>
-            </div>
-            
-            <div className="glass-card main-stat-card">
-              <h3>Average Retention</h3>
-              <div className="retention-circle-container">
-                <div className="retention-circle" style={{"--percent": avgRetention}}>
-                  <div className="percent-number">{avgRetention}%</div>
+          <section className="dashboard-view animate-fade-in">
+            <div className="dashboard-grid">
+              {/* AI COACH TOP BAR */}
+              <div className="glass-card ai-coach-card">
+                <div className="ai-coach-glow"></div>
+                <div className="ai-coach-icon">🤖</div>
+                <div className="ai-coach-content">
+                  <h3>NeuroLearn AI Coach</h3>
+                  <p className="coach-tip">"{coachTip}"</p>
                 </div>
               </div>
-              <p className="stat-desc">{avgRetention < 60 ? 'Needs more revision.' : 'Great progress!'}</p>
-            </div>
 
-            <div className="glass-card insights-card">
-              <h3>🧠 Smart Insights</h3>
-              <div className="insights-list">
-                {lowestTopic && lowestTopic.retentionScore < 60 && (
-                  <div className="insight-item warning">
-                    <span className="icon">⚠️</span>
-                    <p>"{lowestTopic.title}" retention is dropping.</p>
+              {/* MIDDLE ROW: GAUGE + INSIGHTS */}
+              <div className="glass-card main-stat-card">
+                <div className="card-header">
+                  <h3>Average Retention</h3>
+                </div>
+                <div className="retention-circle-container">
+                  <div className="retention-circle" style={{"--percent": avgRetention}}>
+                    <div className="percent-number">{avgRetention}%</div>
+                  </div>
+                </div>
+                <p className="stat-desc">Memory stability is strong!</p>
+              </div>
+
+              <div className="glass-card insights-card">
+                <div className="card-header">
+                  <h3>🧠 Smart Insights</h3>
+                </div>
+                <div className="insights-list">
+                  {lowestTopic && lowestTopic.retentionScore < 60 ? (
+                    <div className="insight-item warning">
+                      <span className="icon">⚠️</span>
+                      <p>"{lowestTopic.title}" retention is dropping.</p>
+                    </div>
+                  ) : (
+                    <div className="insight-item success">
+                      <span className="icon">✅</span>
+                      <p>Great progress on your core topics!</p>
+                    </div>
+                  )}
+                  <div className="insight-item tip">
+                    <span className="icon">💡</span>
+                    <p>Keep your streak alive to boost learning.</p>
+                  </div>
+                  <div className="insight-item info">
+                    <span className="icon">📊</span>
+                    <p>Review topics when retention falls below 60%.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* BOTTOM ROW: 4-BOX OVERVIEW */}
+              <div className="glass-card full-width-card stats-overview">
+                <div className="card-header">
+                  <h3>📊 Study Overview</h3>
+                </div>
+                <div className="stats-grid">
+                  <div className="stat-box">
+                    <div className="stat-number">{topics.length}</div>
+                    <div className="stat-label">Topics</div>
+                  </div>
+                  <div className="stat-box">
+                    <div className="stat-number">0</div>
+                    <div className="stat-label">Sessions</div>
+                  </div>
+                  <div className="stat-box">
+                    <div className="stat-number">0m</div>
+                    <div className="stat-label">Study Time</div>
+                  </div>
+                  <div className="stat-box">
+                    <div className="stat-number">0%</div>
+                    <div className="stat-label">Quiz Avg</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* REVISION ALERTS */}
+              <div className="glass-card full-width-card">
+                <div className="card-header">
+                  <h3>🔔 Revision Alerts</h3>
+                </div>
+                {topics.filter(t => t.retentionScore < 60).length === 0 ? (
+                  <p className="empty-state">All caught up! No urgent revisions needed.</p>
+                ) : (
+                  <div className="table-responsive">
+                    <table className="topics-table">
+                      <thead>
+                        <tr>
+                          <th>Topic</th>
+                          <th>Last Reviewed</th>
+                          <th>Retention</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {topics.filter(t => t.retentionScore < 60).map((topic) => (
+                          <tr key={topic._id}>
+                            <td><strong>{topic.title}</strong></td>
+                            <td>{topic.lastReviewed ? new Date(topic.lastReviewed).toLocaleDateString() : 'Not Yet'}</td>
+                            <td>
+                              <div className="retention-container">
+                                <div className="retention-bar-bg">
+                                  <div className="retention-bar-fill" style={{width: `${topic.retentionScore}%`, background: topic.retentionScore < 40 ? '#f87171' : '#fbbf24'}}></div>
+                                </div>
+                                <span className="retention-val">{topic.retentionScore}%</span>
+                              </div>
+                            </td>
+                            <td>
+                              <button className="btn-action-small" onClick={() => { setRevisionPickerTopic(topic.title); }}>🔄 Revise</button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
-                <div className="insight-item tip">
-                  <span className="icon">💡</span>
-                  <p>Keep your streak alive to boost learning.</p>
-                </div>
-                <div className="insight-item info">
-                  <span className="icon">📊</span>
-                  <p>Review topics when retention falls below 60%.</p>
-                </div>
               </div>
-            </div>
-
-            <div className="glass-card full-width-card">
-              <div className="card-header">
-                <h3>📈 Study Overview</h3>
-              </div>
-              <div className="quick-stats">
-                <div className="q-stat">
-                  <span className="val">{topics.length}</span>
-                  <span className="lab">Topics</span>
-                </div>
-                <div className="q-stat">
-                  <span className="val">0</span>
-                  <span className="lab">Sessions</span>
-                </div>
-                <div className="q-stat">
-                  <span className="val">0m</span>
-                  <span className="lab">Time Spent</span>
-                </div>
-                <div className="q-stat">
-                  <span className="val">0%</span>
-                  <span className="lab">Accuracy</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-card full-width-card">
-              <div className="card-header">
-                <h3>🔔 Revision Alerts</h3>
-              </div>
-              {topics.filter(t => t.retentionScore < 60).length === 0 ? (
-                <p className="empty-state">All caught up! No urgent revisions needed.</p>
-              ) : (
-                <div className="table-responsive">
-                  <table className="topics-table">
-                    <thead>
-                      <tr>
-                        <th>Topic</th>
-                        <th>Last Reviewed</th>
-                        <th>Retention</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {topics.filter(t => t.retentionScore < 60).map((topic) => (
-                        <tr key={topic._id}>
-                          <td><strong>{topic.title}</strong></td>
-                          <td>{topic.lastReviewed ? new Date(topic.lastReviewed).toLocaleDateString() : 'Not Yet'}</td>
-                          <td>
-                            <div className="retention-container">
-                              <div className="retention-bar-bg">
-                                <div className="retention-bar-fill" style={{width: `${topic.retentionScore}%`, background: topic.retentionScore < 40 ? '#f87171' : '#fbbf24'}}></div>
-                              </div>
-                              <span className="retention-val">{topic.retentionScore}%</span>
-                            </div>
-                          </td>
-                          <td>
-                            <button 
-                              className="btn-action-small" 
-                              onClick={() => {
-                                if (topic.retentionScore < 60) {
-                                  setRevisionPickerTopic(topic.title);
-                                } else {
-                                  setRevisionTopic(topic.title);
-                                  setActiveTab('quizzes');
-                                }
-                              }}
-                            >
-                              🔄 Revise
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
             </div>
           </section>
         );
