@@ -14,6 +14,7 @@ import AdminDashboard from './components/AdminDashboard';
 import Planner from './components/Planner';
 import Analytics from './components/Analytics';
 import API_BASE, { authFetch } from './config';
+import AICoachBot from './components/AICoachBot';
 import './components/Dashboard.css';
 import './App.css';
 
@@ -426,6 +427,7 @@ function App() {
           />
         )}
       </main>
+      <AICoachBot user={user} topics={topics} />
     </div>
   );
 }
