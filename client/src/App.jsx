@@ -99,90 +99,40 @@ function App() {
 
         return (
           <section className="dashboard-view animate-fade-in">
-            <div className="dashboard-header-flex">
-              <div className="greeting-text">
-                <h1>Welcome back, {user?.username}</h1>
-                <p>Here's your learning progress at a glance</p>
-              </div>
-              <div className="gamified-stats-compact">
-                <div className="g-stat-item streak">🔥 2 Days</div>
-                <div className="g-stat-item xp">⭐ 450 XP</div>
-                <div className="g-stat-item level">🏆 Level 4</div>
-              </div>
-            </div>
-
-            <div className="xp-progress-container animate-fade-up">
-              <div className="xp-info">
-                <span>Daily Goal Progress</span>
-                <span>450 / 600 XP</span>
-              </div>
-              <div className="xp-bar-bg">
-                <div className="xp-bar-fill" style={{width: '75%'}}>
-                  <div className="xp-bar-glow"></div>
-                </div>
-              </div>
-              <p className="xp-tagline">Only 150 XP left to reach your daily goal! 🚀</p>
-            </div>
-
-            <div className="glass-card trend-card animate-fade-up">
-              <div className="card-header">
-                <div className="header-with-icon">
-                  <span className="icon">📈</span>
-                  <h3>Learning Momentum (7D)</h3>
-                </div>
-                <div className="trend-stat">+12% this week</div>
-              </div>
-              <div className="trend-graph-container">
-                <svg viewBox="0 0 400 100" className="trend-svg">
-                  <defs>
-                    <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="rgba(129, 140, 248, 0.4)" />
-                      <stop offset="100%" stopColor="transparent" />
-                    </linearGradient>
-                  </defs>
-                  <path 
-                    d="M0 80 Q 50 70, 100 85 T 200 40 T 300 60 T 400 20" 
-                    fill="none" 
-                    stroke="var(--accent-primary)" 
-                    strokeWidth="3" 
-                    strokeLinecap="round" 
-                  />
-                  <path 
-                    d="M0 80 Q 50 70, 100 85 T 200 40 T 300 60 T 400 20 L 400 100 L 0 100 Z" 
-                    fill="url(#trendGradient)" 
-                  />
-                  <circle cx="400" cy="20" r="4" fill="var(--accent-primary)" />
-                  <circle cx="400" cy="20" r="8" fill="var(--accent-primary)" opacity="0.3">
-                    <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" />
-                  </circle>
-                </svg>
-                <div className="trend-labels">
-                  <span>Mon</span>
-                  <span>Tue</span>
-                  <span>Wed</span>
-                  <span>Thu</span>
-                  <span>Fri</span>
-                  <span>Sat</span>
-                  <span>Sun</span>
-                </div>
-              </div>
-            </div>
-
-            {lowestTopic && lowestTopic.retentionScore < 60 && (
-              <div className="glass-card focus-zone-card animate-pulse-subtle">
-                <div className="focus-glow-orb"></div>
-                <div className="focus-content">
-                  <div className="focus-header">
-                    <span className="badge-focus">🎯 Recommended Next Step</span>
-                    <h3>Master your weakest link: <strong>{lowestTopic.title}</strong></h3>
+            {/* CLEAN UNIFIED HEADER */}
+            <div className="dashboard-header-unified">
+              <div className="header-main">
+                <h1>Welcome, {user?.username} 👋</h1>
+                <div className="xp-summary">
+                  <div className="xp-pills">
+                    <span>🔥 {gamification?.streak || 0} Day Streak</span>
+                    <span>🏆 Level {gamification?.level || 1}</span>
                   </div>
-                  <p>Your retention for this topic has dropped to {lowestTopic.retentionScore}%. A quick 10-minute revision session will boost your memory stability by 25%.</p>
-                  <button className="btn-primary btn-focus" onClick={() => setRevisionPickerTopic(topic.title)}>
-                    Start Focus Session ⚡
-                  </button>
+                  <div className="xp-mini-bar">
+                    <div className="xp-mini-fill" style={{width: '75%'}}></div>
+                  </div>
+                  <span className="xp-label">75% to Level { (gamification?.level || 1) + 1}</span>
                 </div>
               </div>
-            )}
+            </div>
+
+            {/* AI SMART BRIEFING (Coach + Focus) */}
+            <div className="glass-card smart-briefing-card animate-fade-up">
+              <div className="briefing-icon">🤖</div>
+              <div className="briefing-content">
+                <div className="briefing-header">
+                  <h3>NeuroLearn Smart Briefing</h3>
+                  <span className="live-badge">Live Intelligence</span>
+                </div>
+                <p>"{coachTip}"</p>
+                {lowestTopic && lowestTopic.retentionScore < 60 && (
+                  <div className="focus-cta">
+                    <span>🎯 Focus Priority: <strong>{lowestTopic.title}</strong> ({lowestTopic.retentionScore}%)</span>
+                    <button className="btn-briefing" onClick={() => setRevisionPickerTopic(lowestTopic.title)}>Start Session</button>
+                  </div>
+                )}
+              </div>
+            </div>
 
             <div className="dashboard-layout-container">
               {/* TOP: AI COACH */}
