@@ -14,6 +14,7 @@ const LoginPage = ({ onLogin }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const avatars = [
     '/avatars/avatar_male.png',
@@ -186,13 +187,22 @@ const LoginPage = ({ onLogin }) => {
               
               <div className="input-group">
                 <label>Password</label>
-                <input 
-                  type="password" 
-                  placeholder="Enter your password"
-                  value={form.password}
-                  onChange={(e) => setForm({...form, password: e.target.value})}
-                  required
-                />
+                <div className="password-input-wrapper">
+                  <input 
+                    type={showPassword ? 'text' : 'password'} 
+                    placeholder="Enter your password"
+                    value={form.password}
+                    onChange={(e) => setForm({...form, password: e.target.value})}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    className="password-toggle-btn"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? '🙈' : '👁️'}
+                  </button>
+                </div>
               </div>
 
               {error && <p className="error-msg">{error}</p>}
