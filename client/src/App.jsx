@@ -201,15 +201,15 @@ function App() {
                       <div className="lab">Topics</div>
                     </div>
                     <div className="stat-box-small">
-                      <div className="val">0</div>
+                      <div className="val">{gamification?.stats?.studySessions || 0}</div>
                       <div className="lab">Sessions</div>
                     </div>
                     <div className="stat-box-small">
-                      <div className="val">0m</div>
+                      <div className="val">{(gamification?.stats?.studySessions || 0) * 15}m</div>
                       <div className="lab">Study Time</div>
                     </div>
                     <div className="stat-box-small">
-                      <div className="val">0%</div>
+                      <div className="val">{avgRetention}%</div>
                       <div className="lab">Quiz Avg</div>
                     </div>
                   </div>
