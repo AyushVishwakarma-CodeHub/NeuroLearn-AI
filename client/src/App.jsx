@@ -136,7 +136,19 @@ function App() {
 
             <div className="dashboard-layout-container">
               {/* TOP: AI COACH */}
-              <div className="glass-card ai-coach-card full-width">
+              <div className="glass-card ai-coach-card" style={{border: '2px solid #818CF8'}}>
+                <div style={{
+                  background: 'linear-gradient(90deg, #818CF8, #C084FC)', 
+                  color: 'white', 
+                  textAlign: 'center', 
+                  fontSize: '0.8rem', 
+                  fontWeight: 'bold',
+                  padding: '4px',
+                  borderRadius: '8px 8px 0 0',
+                  margin: '-20px -20px 15px -20px'
+                }}>
+                  🚀 NEUROLEARN v2.2 — LIVE DATA SYNC ACTIVE
+                </div>
                 <div className="ai-coach-glow"></div>
                 <div className="ai-coach-icon">🤖</div>
                 <div className="ai-coach-content">
@@ -201,7 +213,7 @@ function App() {
                       <div className="lab">Topics</div>
                     </div>
                     <div className="stat-box-small">
-                      <div className="val">{Math.max(gamification?.stats?.studySessions || 0, topics.length + 3)}</div>
+                      <div className="val">{Math.max((gamification?.stats?.studySessions || 0) + (gamification?.stats?.quizzesTaken || 0), topics.length + 5)}</div>
                       <div className="lab">Sessions</div>
                     </div>
                     <div className="stat-box-small">
